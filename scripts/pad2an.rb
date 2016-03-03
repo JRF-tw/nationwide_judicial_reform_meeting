@@ -106,12 +106,14 @@ def main
         </preface>
         <debateBody>
           <debateSection>
+            <heading></heading>
           </debateSection>
         </debateBody>
       </debate>
     </akomaNtoso>')
   doc.encoding = 'UTF-8'
-  doc.css('docTitle').first.content = title
+  doc.css('docTitle').first.content = '1999年全國司法改革會議'
+  doc.at_css('heading').content = title
   debateSection = doc.at_css "debateSection"
   contents.each do |content|
     if content.text.match(/^\s*$/)
@@ -161,7 +163,7 @@ def main
     references << tlc_person
   end
   puts doc.to_xml
-  write_file("#{title}.an", doc.to_xml(indent: 2))
+  write_file("akoma_ntosos/#{title}.an", doc.to_xml(indent: 2))
 end
 
 main()
