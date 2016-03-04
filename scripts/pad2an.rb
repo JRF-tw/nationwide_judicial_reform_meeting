@@ -36,7 +36,7 @@ def get_name(name, chairman = nil)
   name = name.gsub('委員', '').gsub('委員兼召集人', '').gsub('處長', '').gsub('律師', '').
     gsub('法官', '').gsub('檢察官', '').gsub('副主席', '').gsub('執行秘書', '').gsub('教授', '').
     gsub('理事長', '').gsub('副院長', '').gsub('院長', '').gsub('先生', '').gsub('副廳長', '').
-    gsub('簡任祕書', '').gsub('部長', '')
+    gsub('簡任祕書', '').gsub('部長', '').gsub('組長', '')
 end
 
 def get_chairman(contents)
