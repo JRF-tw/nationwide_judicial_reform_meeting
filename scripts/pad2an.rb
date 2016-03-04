@@ -36,7 +36,8 @@ def get_name(name, chairman = nil)
   name = name.gsub('委員', '').gsub('委員兼召集人', '').gsub('處長', '').gsub('律師', '').
     gsub('法官', '').gsub('檢察官', '').gsub('副主席', '').gsub('執行秘書', '').gsub('教授', '').
     gsub('理事長', '').gsub('副院長', '').gsub('院長', '').gsub('先生', '').gsub('副廳長', '').
-    gsub('簡任祕書', '').gsub('部長', '').gsub('組長', '')
+    gsub('簡任祕書', '').gsub('部長', '').gsub('副組長', '').gsub('組長', '').gsub('民事廳', '').
+    gsub('廳長', '')
 end
 
 def get_chairman(contents)
@@ -117,7 +118,7 @@ def main
       </debate>
     </akomaNtoso>')
   doc.encoding = 'UTF-8'
-  doc.css('docTitle').first.content = '1999年全國司法改革會議'
+  doc.css('docTitle').first.content = '測試區'
   doc.at_css('heading').content = title
   debateSection = doc.at_css "debateSection"
   contents.each do |content|
