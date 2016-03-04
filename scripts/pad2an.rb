@@ -71,13 +71,15 @@ def get_place(content)
 end
 
 def insert_speech(speech, debateSection, doc)
-  speech_node = Nokogiri::XML::Node.new('speech', doc)
-  speech_node['by'] = "##{speech[:speaker]}"
-  from_node = Nokogiri::XML::Node.new('from', doc)
-  from_node.content = speech[:speaker]
-  from_node.parent = speech_node
-  from_node.add_next_sibling(speech[:content])
-  debateSection << speech_node
+  unless speech[:content] == ''
+    speech_node = Nokogiri::XML::Node.new('speech', doc)
+    speech_node['by'] = "##{speech[:speaker]}"
+    from_node = Nokogiri::XML::Node.new('from', doc)
+    from_node.content = speech[:speaker]
+    from_node.parent = speech_node
+    from_node.add_next_sibling(speech[:content])
+    debateSection << speech_node
+  end
 end
 
 def insert_narrative(narrative, debateSection, doc)
