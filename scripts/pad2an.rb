@@ -144,7 +144,7 @@ def main
       insert_narrative(text, debateSection, doc)
     elsif text.match(/^討論事項/)
       insert_narrative(text, debateSection, doc)
-    elsif text.match(/^[^  ](\p{Word}+)：$/)
+    elsif text.match(/^[^  ]\S+：$/)
       # set speaker
       insert_speech(speech, debateSection, doc) unless speech == {} or speech[:content] == ''
       speech = {}
