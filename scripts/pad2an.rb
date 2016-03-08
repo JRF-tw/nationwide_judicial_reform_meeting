@@ -124,7 +124,7 @@ def main
   doc.at_css('heading').content = title
   debateSection = doc.at_css "debateSection"
   contents.each do |content|
-    text = contents.text.gsub(' ', ' ')
+    text = content.text
     if text.match(/^\s*$/)
       next
     elsif text.match(/^時間：/)
