@@ -1,0 +1,36 @@
+#!/bin/bash
+
+./pad2an.rb https://hackpad.com/ep/pad/static/rt7zyRkmBCH
+./pad2an.rb https://hackpad.com/ep/pad/static/tavzc3yLyLO
+./pad2an.rb https://hackpad.com/ep/pad/static/gXw3kUgVHXl
+./pad2an.rb https://hackpad.com/ep/pad/static/awzqw0lwZEo
+./pad2an.rb https://hackpad.com/ep/pad/static/vogMTM62Yeh
+./pad2an.rb https://hackpad.com/ep/pad/static/ZeVjToVXKMA
+./pad2an.rb https://hackpad.com/ep/pad/static/1cuIobxXZ6W
+./pad2an.rb https://hackpad.com/ep/pad/static/6xGqp9LO2A4
+./pad2an.rb https://hackpad.com/ep/pad/static/ISz95kYCYaw
+./pad2an.rb https://hackpad.com/ep/pad/static/unjXvSRrVBU
+./pad2an.rb https://hackpad.com/ep/pad/static/gLx1Whcn265
+./pad2an.rb https://hackpad.com/ep/pad/static/YLfYS0GgNXw
+./pad2an.rb https://hackpad.com/ep/pad/static/8Caz3op8Ejt
+./pad2an.rb https://hackpad.com/ep/pad/static/ygyrq0n6xXD
+./pad2an.rb https://hackpad.com/ep/pad/static/xpqRubYcDsn
+./pad2an.rb https://hackpad.com/ep/pad/static/6IGELVgyJ45
+./pad2an.rb https://hackpad.com/ep/pad/static/WYjSBzol0Fj
+./pad2an.rb https://hackpad.com/ep/pad/static/JZkqNCyt2C8
+./pad2an.rb https://hackpad.com/ep/pad/static/ycEuD4govDw
+./pad2an.rb https://hackpad.com/ep/pad/static/S5M4T5QUR3I
+./pad2an.rb https://hackpad.com/ep/pad/static/nKLkt86tUQx
+./pad2an.rb https://hackpad.com/ep/pad/static/rWokALvsEoD
+./pad2an.rb https://hackpad.com/ep/pad/static/zxAg82swKz2
+./pad2an.rb https://hackpad.com/ep/pad/static/QKbm6YjAmZG
+./pad2an.rb https://hackpad.com/ep/pad/static/YKpfSc2HtF6
+./pad2an.rb https://hackpad.com/ep/pad/static/XV9dXguEPcP
+./pad2an.rb https://hackpad.com/ep/pad/static/K73KdLhSiaj
+./pad2an.rb https://hackpad.com/ep/pad/static/bCJqaETN9Zq
+./pad2an.rb https://hackpad.com/ep/pad/static/JLQwKR4n0HG
+./pad2an.rb https://hackpad.com/ep/pad/static/yjZxaOgIvUJ
+./pad2an.rb https://hackpad.com/ep/pad/static/yQClARAuGEA
+./pad2an.rb https://hackpad.com/ep/pad/static/uwtebBiZgs2
+./pad2an.rb https://hackpad.com/ep/pad/static/HXalh9O5ep6
+./pad2an.rb https://hackpad.com/ep/pad/static/VHdWXmNAN36

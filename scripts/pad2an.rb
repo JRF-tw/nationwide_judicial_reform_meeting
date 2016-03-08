@@ -35,9 +35,11 @@ def get_name(name, chairman = nil)
   end
   name = name.gsub('委員', '').gsub('委員兼召集人', '').gsub('處長', '').gsub('律師', '').
     gsub('法官', '').gsub('檢察官', '').gsub('副主席', '').gsub('執行秘書', '').gsub('教授', '').
-    gsub('理事長', '').gsub('副院長', '').gsub('院長', '').gsub('先生', '').gsub('副廳長', '').
+    gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('先生', '').gsub('副廳長', '').
     gsub('簡任祕書', '').gsub('部長', '').gsub('副組長', '').gsub('組長', '').gsub('民事廳', '').
-    gsub('廳長', '')
+    gsub('廳長', '').gsub('主任', '').gsub('社長', '').gsub('秘書長', '').gsub('執行長', '').
+    gsub('代表', '').gsub('先生', '').gsub('主席', '').gsub('敎授', '').gsub('庭長', '').
+    gsub('立委', '').gsub('議題整理組', '').gsub('新聞組', '')
 end
 
 def get_chairman(contents)
@@ -45,18 +47,18 @@ def get_chairman(contents)
   contents.each do |content|
     if content.text.match(/主席：(\p{Word}+)/)
       chairman = content.text.gsub('主席：', '').gsub('委員兼召集人', '').gsub('教授', '').
-        gsub('理事長', '').gsub('副院長', '').gsub('院長', '').gsub('部長', '')
+        gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('部長', '').gsub('委員', '')
     end
   end
   chairman
 end
 
 def get_conventioneers(content)
-  content.gsub('出席人員：', '').gsub('出席：', '').gsub(/（\p{Word}+）/, '').split('、')
+  content.gsub('出席人員：', '').gsub('出席：', '').gsub('（依簽名先後為序）', '').gsub('（詳簽到單）', '').split('、')
 end
 
 def get_hearers(content)
-  content.gsub('列席人員：', '').gsub(/（\p{Word}+）/, '').split('、')
+  content.gsub('列席人員：', '').gsub('（依簽名先後為序）', '').gsub('（詳簽到單）', '').split('、')
 end
 
 def get_datetime(content)
@@ -85,7 +87,7 @@ end
 
 def insert_narrative(narrative, debateSection, doc)
   narrative_node = Nokogiri::XML::Node.new('narrative', doc)
-  narrative_node.content = narrative
+  narrative_node.content = narrative.strip
   debateSection << narrative_node
 end
 
@@ -148,7 +150,7 @@ def main
       people += [speech[:speaker]] unless people.include? speech[:speaker]
       speech[:content] = ''
     elsif content.text.match(/^[  ]{2}/)
-      speech_content = '<p>' + content.text.gsub('  ', '') + '</p>'
+      speech_content = '<p>' + content.text.gsub('  ', '').strip + '</p>'
       speech[:content] +=  speech_content unless speech == {}
     else
       insert_speech(speech, debateSection, doc) unless speech == {}
