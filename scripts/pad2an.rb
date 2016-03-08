@@ -124,37 +124,38 @@ def main
   doc.at_css('heading').content = title
   debateSection = doc.at_css "debateSection"
   contents.each do |content|
-    if content.text.match(/^\s*$/)
+    text = contents.text.gsub(' ', ' ')
+    if text.match(/^\s*$/)
       next
-    elsif content.text.match(/^時間：/)
-      insert_narrative(content.text, debateSection, doc)
-      starttime, endtime = get_datetime(content.text)
-    elsif content.text.match(/^出席人員：/)
-      insert_narrative(content.text, debateSection, doc)
-      people += get_conventioneers(content.text)
-    elsif content.text.match(/^列席人員：/)
-      insert_narrative(content.text, debateSection, doc)
-    elsif content.text.match(/^主席：(\p{Word}+)/)
-      insert_narrative(content.text, debateSection, doc)
-    elsif content.text.match(/^紀錄：/)
-      insert_narrative(content.text, debateSection, doc)
-    elsif content.text.match(/^地點：/)
-      insert_narrative(content.text, debateSection, doc)
-    elsif content.text.match(/^討論事項/)
-      insert_narrative(content.text, debateSection, doc)
-    elsif content.text.match(/^[^  ](\p{Word}+)：$/)
+    elsif text.match(/^時間：/)
+      insert_narrative(text, debateSection, doc)
+      starttime, endtime = get_datetime(text)
+    elsif text.match(/^出席人員：/)
+      insert_narrative(text, debateSection, doc)
+      people += get_conventioneers(text)
+    elsif text.match(/^列席人員：/)
+      insert_narrative(text, debateSection, doc)
+    elsif text.match(/^主席：(\p{Word}+)/)
+      insert_narrative(text, debateSection, doc)
+    elsif text.match(/^紀錄：/)
+      insert_narrative(text, debateSection, doc)
+    elsif text.match(/^地點：/)
+      insert_narrative(text, debateSection, doc)
+    elsif text.match(/^討論事項/)
+      insert_narrative(text, debateSection, doc)
+    elsif text.match(/^[^  ](\p{Word}+)：$/)
       # set speaker
       insert_speech(speech, debateSection, doc) unless speech == {} or speech[:content] == ''
       speech = {}
-      speech[:speaker] = get_name(content.text, chairman)
+      speech[:speaker] = get_name(text, chairman)
       people += [speech[:speaker]] unless people.include? speech[:speaker]
       speech[:content] = ''
-    elsif content.text.match(/^[  ]{2}/)
-      speech_content = '<p>' + content.text.gsub('  ', '').gsub(/ $/, '').strip + '</p>'
+    elsif text.match(/^[  ]{2}/)
+      speech_content = '<p>' + text.gsub(/^[  ]{2}/, '').strip + '</p>'
       speech[:content] +=  speech_content unless speech == {}
     else
       insert_speech(speech, debateSection, doc) unless speech == {}
-      insert_narrative(content.text, debateSection, doc)
+      insert_narrative(text, debateSection, doc)
       speech[:content] = ''
     end
   end
