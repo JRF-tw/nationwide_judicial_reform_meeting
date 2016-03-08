@@ -47,7 +47,8 @@ def get_chairman(contents)
   contents.each do |content|
     if content.text.match(/主席：(\p{Word}+)/)
       chairman = content.text.gsub('主席：', '').gsub('委員兼召集人', '').gsub('教授', '').
-        gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('部長', '').gsub('委員', '')
+        gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('部長', '').gsub('委員', '').
+        gsub('長長', '長')
     end
   end
   chairman
@@ -151,8 +152,11 @@ def main
       people += [speech[:speaker]] unless people.include? speech[:speaker]
       speech[:content] = ''
     elsif text.match(/^[  ]{2}/)
-      speech_content = '<p>' + text.gsub(/^[  ]{2}/, '').strip + '</p>'
-      speech[:content] +=  speech_content unless speech == {}
+      speech_content = text.gsub(/^[  ]{2}/, '').strip
+      unless speech_content == ''
+        speech_content = '<p>' + text.gsub(/^[  ]{2}/, '').strip + '</p>'
+        speech[:content] +=  speech_content unless speech == {}
+      end
     else
       insert_speech(speech, debateSection, doc) unless speech == {}
       insert_narrative(text, debateSection, doc)
