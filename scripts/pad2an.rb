@@ -150,7 +150,7 @@ def main
       people += [speech[:speaker]] unless people.include? speech[:speaker]
       speech[:content] = ''
     elsif content.text.match(/^[  ]{2}/)
-      speech_content = '<p>' + content.text.gsub('  ', '').strip + '</p>'
+      speech_content = '<p>' + content.text.gsub('  ', '').gsub(/ $/, '').strip + '</p>'
       speech[:content] +=  speech_content unless speech == {}
     else
       insert_speech(speech, debateSection, doc) unless speech == {}
