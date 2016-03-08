@@ -158,9 +158,12 @@ def main
         speech[:content] +=  speech_content unless speech == {}
       end
     else
-      insert_speech(speech, debateSection, doc) unless speech == {}
-      insert_narrative(text, debateSection, doc)
-      speech[:content] = ''
+      text = text.strip
+      unless text == ''
+        insert_speech(speech, debateSection, doc) unless speech == {}
+        insert_narrative(text, debateSection, doc)
+        speech[:content] = ''
+      end
     end
   end
   insert_speech(speech, debateSection, doc) unless speech == {} or speech[:content] == ''
