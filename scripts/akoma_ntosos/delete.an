@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<akomaNtoso>
+      <debate name="hansard">
+        <meta>
+          <references source="#">
+          </references>
+        </meta>
+        <preface>
+          <docTitle>測試區</docTitle>
+        </preface>
+        <debateBody>
+        </debateBody>
+      </debate>
+    </akomaNtoso>
