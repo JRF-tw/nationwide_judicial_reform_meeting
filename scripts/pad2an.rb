@@ -121,7 +121,8 @@ def main
       </debate>
     </akomaNtoso>')
   doc.encoding = 'UTF-8'
-  doc.css('docTitle').first.content = '1999年全國司法改革會議'
+  # doc.css('docTitle').first.content = '1999年全國司法改革會議'
+  doc.css('docTitle').first.content = '測試區'
   doc.at_css('heading').content = title
   debateSection = doc.at_css "debateSection"
   contents.each do |content|
