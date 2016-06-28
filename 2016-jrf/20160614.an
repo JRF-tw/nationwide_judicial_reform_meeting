@@ -4,15 +4,15 @@
     <meta>
     <references source="#">
       <TLCPerson id="林俊宏" showAs="林俊宏" href="/ontology/person/林俊宏" />
-      <TLCPerson id="陳雨凡" showAs="陳雨凡" href="/ontology/person/陳雨凡" />
+      <TLCPerson id="陳雨凡" showAs="陳雨凡" href="/ontology/person/jrf.sayit.mysociety.org/陳雨凡" />
       <TLCPerson id="曾柏文" showAs="曾柏文" href="/ontology/person/曾柏文" />
       <TLCPerson id="孫斌" showAs="孫斌" href="/ontology/person/孫斌" />
       <TLCPerson id="高涌誠" showAs="高涌誠" href="/ontology/person/高涌誠" />
       <TLCPerson id="賴瑩真" showAs="賴瑩真" href="/ontology/person/賴瑩真" />
       <TLCPerson id="林孟皇" showAs="林孟皇" href="/ontology/person/林孟皇" />
       <TLCPerson id="林易志" showAs="林易志" href="/ontology/person/林易志" />
-      <TLCPerson id="高榮志" showAs="高榮志" href="/ontology/person/高榮志" />
-      <TLCPerson id="林雨蒼" showAs="林雨蒼" href="/ontology/person/林雨蒼" />
+      <TLCPerson id="高榮志" showAs="高榮志" href="/ontology/person/jrf.sayit.mysociety.org/高榮志" />
+      <TLCPerson id="林雨蒼" showAs="林雨蒼" href="/ontology/person/jrf.sayit.mysociety.org/林雨蒼" />
       <TLCPerson id="李艾倫" showAs="李艾倫" href="/ontology/person/李艾倫" />
       <TLCPerson id="劉家榮" showAs="劉家榮" href="/ontology/person/劉家榮" />
       <TLCPerson id="林瑋婷" showAs="林瑋婷" href="/ontology/person/林瑋婷" />
