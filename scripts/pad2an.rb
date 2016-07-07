@@ -39,7 +39,8 @@ def get_name(name, chairman = nil)
     gsub('簡任祕書', '').gsub('部長', '').gsub('副組長', '').gsub('組長', '').gsub('民事廳', '').
     gsub('廳長', '').gsub('主任', '').gsub('社長', '').gsub('秘書長', '').gsub('執行長', '').
     gsub('代表', '').gsub('先生', '').gsub('主席', '').gsub('敎授', '').gsub('庭長', '').
-    gsub('立委', '').gsub('議題整理組', '').gsub('新聞組', '').gsub('（視訊）', '').gsub('執秘', '')
+    gsub('立委', '').gsub('議題整理組', '').gsub('新聞組', '').gsub('（視訊）', '').gsub('執秘', '').
+    gsub('老師', '')
 end
 
 def get_chairman(contents)
