@@ -33,29 +33,27 @@ def get_name(name, chairman = nil)
   if chairman and name == '主席'
     return chairman
   end
-  name = name.gsub('委員兼召集人', '').gsub('委員', '').gsub('副召集人', '').gsub('召集人', '').gsub('處長', '').gsub('律師', '').
-    gsub('大法官', '').gsub('法官', '').gsub('檢察官', '').gsub('副主席', '').gsub('執行秘書', '').gsub('教授', '').gsub('理事長', '').
-    gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('先生', '').gsub('副廳長', '').gsub('關係機關代表', '').gsub('機關代表', '').
-    gsub('簡任祕書', '').gsub('部長', '').gsub('副組長', '').gsub('組長', '').gsub('民事廳', '').gsub('書記處', '').
+  name = name.gsub('委員', '').gsub('委員兼召集人', '').gsub('處長', '').gsub('律師', '').
+    gsub('法官', '').gsub('檢察官', '').gsub('副主席', '').gsub('執行秘書', '').gsub('教授', '').
+    gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('先生', '').gsub('副廳長', '').
+    gsub('簡任祕書', '').gsub('部長', '').gsub('副組長', '').gsub('組長', '').gsub('民事廳', '').
     gsub('廳長', '').gsub('主任', '').gsub('社長', '').gsub('秘書長', '').gsub('執行長', '').
-    gsub('代表', '').gsub('先生', '').gsub('小姐', '').gsub('主席', '').gsub('敎授', '').gsub('庭長', '').gsub('法庭之友', '').
-    gsub('立委', '').gsub('議題整理組', '').gsub('新聞組', '').gsub(/（.*）/, '').gsub('執秘', '').gsub('關係機關方訴訟代理人', '').gsub('聲請人代方訴訟人', '').
-    gsub('老師', '').gsub('書記官', '').gsub('鑑定人', '').gsub('聲請人', '').gsub('關係機關訴訟代理人', '').gsub('董事長', '').gsub('機關訴訟代理人', '').
-    gsub('聲請方訴訟代理人', '').gsub('副研究員', '').gsub('助研究員', '').gsub('研究員', '').gsub('審判長', '').gsub('杜銘哲案訴訟代理人', '').gsub('黃國昌案訴訟代理人', '')
-
+    gsub('代表', '').gsub('先生', '').gsub('主席', '').gsub('敎授', '').gsub('庭長', '').
+    gsub('立委', '').gsub('議題整理組', '').gsub('新聞組', '').gsub('（視訊）', '').gsub('執秘', '').
+    gsub('老師', '').gsub('次長').gsub('專門委員')
 end
 
-def get_chairman(contents)
-  chairman = nil
-  contents.each do |content|
-    if content.text.match(/主席：(\p{Word}+)/)
-      chairman = content.text.gsub('主席：', '').gsub('委員兼召集人', '').gsub('教授', '').
-        gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('部長', '').gsub('委員', '').
-        gsub('長長', '長')
-    end
-  end
-  chairman
-end
+# def get_chairman(contents)
+#   chairman = nil
+#   contents.each do |content|
+#     if content.text.match(/主席：(\p{Word}+)/)
+#       chairman = content.text.gsub('主席：', '').gsub('委員兼召集人', '').gsub('教授', '').
+#         gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('部長', '').gsub('委員', '').
+#         gsub('長長', '長')
+#     end
+#   end
+#   chairman
+# end
 
 def get_conventioneers(content)
   content.gsub('出席人員：', '').gsub('出席：', '').gsub('（依簽名先後為序）', '').gsub('（詳簽到單）', '').split('、')
@@ -102,7 +100,7 @@ def main
   contents = html.css('p')
   starttime, endtime, chairman = nil
   people = []
-  chairman = get_chairman(contents)
+  # chairman = get_chairman(contents)
   speaker = ''
   speeches = []
   speech = {}
@@ -148,7 +146,7 @@ def main
       insert_narrative(text, debateSection, doc)
     elsif text.match(/^討論事項/)
       insert_narrative(text, debateSection, doc)
-    elsif text.match(/^[^  ].*：$/)
+    elsif text.match(/^[^  ]\S+：$/)
       # set speaker
       insert_speech(speech, debateSection, doc) unless speech == {} or speech[:content] == ''
       speech = {}
@@ -179,7 +177,7 @@ def main
     tlc_person = Nokogiri::XML::Node.new('TLCPerson', doc)
     tlc_person['id'] = person
     tlc_person['showAs'] = person
-    tlc_person['href'] = "/ontology/person/#{person.gsub(' ', '-')}"
+    tlc_person['href'] = "/ontology/person/#{person}"
     references << tlc_person
   end
   puts doc.to_xml
