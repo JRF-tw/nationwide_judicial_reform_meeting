@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<akomaNtoso>
+      <debate name="hansard">
+        <meta>
+          <references source="#">
+          </references>
+        </meta>
+        <preface>
+          <docTitle>籌備委員會第三次籌備會議</docTitle>
+        </preface>
+        <debateBody>
+        </debateBody>
+      </debate>
+    </akomaNtoso>
