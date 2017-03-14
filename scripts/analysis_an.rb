@@ -41,7 +41,7 @@ def main
     end
   end
   # Save it into the csv file named by title.
-  File.open("#{title}.csv", 'w') do |f|
+  File.open("#{title}發言字數統計.csv", 'w') do |f|
     f.write("name, count\n")
     results.each do |name, count|
       puts "#{name}, #{count}"
