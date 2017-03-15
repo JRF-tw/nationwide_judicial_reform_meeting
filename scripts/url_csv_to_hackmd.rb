@@ -187,7 +187,7 @@ csv.each do |data|
       all_authors[:judges] << author unless all_authors[:judges].include?(author)
     elsif data[:"身分"].match(/律師/)
       all_authors[:lawyers] << author unless all_authors[:lawyers].include?(author)
-    elsif data[:"身分"].match(/檢察官|檢察長|檢察總長/)
+    elsif data[:"身分"].match(/檢察/)
       all_authors[:procedures] << author unless all_authors[:procedures].include?(author)
     elsif data[:"身分"].match(/教授|講師|學者/)
       all_authors[:theachers] << author unless all_authors[:theachers].include?(author)
