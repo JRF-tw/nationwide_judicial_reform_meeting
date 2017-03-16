@@ -24,7 +24,7 @@ def output_markdown(data, old_author)
   result = ''
   data[:backgrounds] = "其他"
   if data[:"身分"]
-    if data[:"身分"].match(/法官|司法院院長/)
+    if data[:"身分"].match(/法官|司法院院長|庭長/)
       data[:backgrounds] = "法官"
     elsif data[:"身分"].match(/檢察/)
       data[:backgrounds] = "檢察官"
@@ -99,7 +99,7 @@ end
 def get_ltn_contents(data)
   # http://talk.ltn.com.tw/article/paper/1083063
   html = get_html(data[:"連結"])
-  data[:contents] = html.css('.cont > p').map{ |i| clean_string(i.text) }.select{ |i| i != "" }
+  data[:contents] = html.css('.cont > p').map{ |i| clean_string(i.text).gsub("《自由開講》是一個提供民眾對話的電子論壇，不論是對政治、經濟或社會、文化等新聞議題，有意見想表達、有話不吐不快，都歡迎你熱烈投稿。文長700字內為優，來稿請附真實姓名（必寫。有筆名請另註）、職業、聯絡電話、E-mail帳號。本報有錄取及刪修權，不付稿酬；錄用與否將不另行通知。投稿信箱：LTNTALK@gmail.com", "") }.select{ |i| i != "" }
   return data
 end
 
@@ -182,7 +182,7 @@ csv.each do |data|
   result += output_markdown(data, author)
   author = data[:"作者"]
   if data[:"身分"]
-    if data[:"身分"].match(/法官|司法院院長/)
+    if data[:"身分"].match(/法官|司法院院長|庭長/)
       all_authors[:judges] << author unless all_authors[:judges].include?(author)
     elsif data[:"身分"].match(/律師/)
       all_authors[:lawyers] << author unless all_authors[:lawyers].include?(author)
