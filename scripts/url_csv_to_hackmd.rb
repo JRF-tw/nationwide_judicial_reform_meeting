@@ -21,7 +21,7 @@ def write_file(filename, content)
 end
 
 def get_keywords(data)
-  keywords = "#{data[:"作者"]}、#{data[:backgrounds]}、#{data[:"相關組別"]}、#{data[:"相關主題"]}、#{data[:"日期"]}".split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
+  keywords = "#{data[:"作者"]}、#{data[:backgrounds]}、#{data[:"相關組別"]}、#{data[:"相關主題"]}、#{data[:"平台"]}、#{data[:"日期"]}".split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
 end
 
 def add_backgrounds(data)
