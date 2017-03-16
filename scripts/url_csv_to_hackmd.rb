@@ -17,7 +17,7 @@ def write_file(filename, content)
 end
 
 def get_keywords(data)
-  keywords = "#{data[:"作者"]}、#{data[:backgrounds]}、#{data[:"相關組別"]}、#{data[:"相關主題"]}".split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
+  keywords = "#{data[:"作者"]}、#{data[:backgrounds]}、#{data[:"相關組別"]}、#{data[:"相關主題"]}、#{data[:"日期"]}".split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
 end
 
 def add_backgrounds(data)
@@ -38,9 +38,9 @@ def add_backgrounds(data)
   return data
 end
 
-def output_markdown(data, old_author)
+def output_markdown(data, old_author, old_backgrounds)
   result = ''
-  if old_author != data[:"作者"]
+  if old_author != data[:"作者"] || old_backgrounds != data[:"backgrounds"]
     result += "# #{data[:"作者"]}\n"
     result += "## backgrounds\n- #{data[:backgrounds]}\n\n"
     # result += "## relations\n- #{data[:"身分"]}\n\n" if data[:"身分"] && data[:"身分"].length > 0
@@ -48,7 +48,7 @@ def output_markdown(data, old_author)
   result += "## articles\n"
   result += "### #{data[:"日期"].gsub("-", "/")} GMT0+8:00 #{data[:"連結"]}\n"
   result += "- "
-  result += "<h2>#{data[:"標題"]}</h2>"
+  result += "<h2>#{data[:"標題"].gsub("#", "")}</h2>" if data[:"標題"]
   data[:contents].each do |content|
     result += "<p>#{content}</p>"
   end
@@ -161,6 +161,7 @@ end
 csv = SmarterCSV.process(ARGV[0])
 result = "總統府司法改革國是會議相關投書彙整\n\n"
 author = nil
+backgrounds = nil
 all_keywords = []
 all_authors = {
   procedures: [],
@@ -169,6 +170,7 @@ all_authors = {
   theachers: [],
   others: []
 }
+all_dates = []
 csv.each do |data|
   puts data[:"連結"]
   uri = URI.parse(data[:"連結"])
@@ -201,8 +203,10 @@ csv.each do |data|
     data[:"平台"] = "其他平台"
   end
   keywords = data[:"相關主題"].to_s.split('、').select{ |i| i != "" }.map{ |i| all_keywords << i unless all_keywords.include?(i) }
-  result += output_markdown(data, author)
+  result += output_markdown(data, author, backgrounds)
   author = data[:"作者"]
+  all_dates << data[:"日期"] unless all_dates.include?(data[:"日期"])
+  backgrounds = data[:backgrounds]
   if data[:backgrounds] == "法官"
     all_authors[:judges] << author unless all_authors[:judges].include?(author)
   elsif data[:backgrounds] == "律師"
@@ -257,4 +261,9 @@ all_keywords.sort.each do |keyword|
 end
 result += "\n"
 
+result += "- 投書日期\n"
+all_dates.sort.each do |date|
+  result += "  - #{date}\n"
+end
+result += "\n"
 write_file('result.md', result)
