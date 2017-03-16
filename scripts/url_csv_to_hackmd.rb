@@ -7,7 +7,7 @@ require 'smarter_csv'
 
 def get_html(url)
   page = open(url)
-  html = Nokogiri::HTML(page.read)
+  html = Nokogiri::HTML(page.read.gsub('<span style="height:30px;display:block;"></span>', '<br>'))
   html.search('br').each do |n|
     n.replace("||")
   end
