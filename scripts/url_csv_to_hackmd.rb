@@ -227,8 +227,13 @@ all_keywords = all_keywords - ["第一組", "第二組", "第三組", "第四組
 result += "\n\n\n___
 ```htmlembedded=
 <p>
-2017年2月起，總統府召開司法改革國是會議，會議期間，媒體上出現大量司法制度相關投書，此為投書整理。
+2017年2月起，總統府召開<a href=\"https://justice.president.gov.tw/\" target=\"_blank\">司法改革國是會議</a>，會議期間，媒體上出現大量司法制度相關投書，此為民間司改會所製作之投書整理。
 </p>
+<ul>
+  <li><a href=\"https://www.jrf.org.tw/\" target=\"_blank\">民間司改會網站</a></li>
+  <li><a href=\"http://fb.com/jrf.tw\" target=\"_blank\">民間司改會粉專</a></li>
+  <li><a href=\"http://bit.ly/2m37Aha\" target=\"_blank\">關於Debater辯論家</a></li>
+</ul>
 ```\n\n"
 
 result += "- 作者\n"
