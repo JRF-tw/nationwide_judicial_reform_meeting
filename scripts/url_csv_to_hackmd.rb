@@ -17,27 +17,26 @@ def write_file(filename, content)
 end
 
 def get_keywords(data)
-  keywords = "#{data[:"相關組別"]}、#{data[:"相關主題"]}".split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
+  keywords = "#{data[:"作者"]}、#{data[:backgrounds]}、#{data[:"相關組別"]}、#{data[:"相關主題"]}".split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
 end
 
 def output_markdown(data, old_author)
   result = ''
+  data[:backgrounds] = "其他"
+  if data[:"身分"]
+    if data[:"身分"].match(/法官|司法院院長/)
+      data[:backgrounds] = "法官"
+    elsif data[:"身分"].match(/檢察/)
+      data[:backgrounds] = "檢察官"
+    elsif data[:"身分"].match(/律師/)
+      data[:backgrounds] = "律師"
+    elsif data[:"身分"].match(/教授|講師|學者/)
+      data[:backgrounds] = "學者"
+    end
+  end
   if old_author != data[:"作者"]
     result += "# #{data[:"作者"]}\n"
-    if data[:"身分"]
-      if data[:"身分"].match(/法官/)
-        result += "## backgrounds\n- 法官\n\n"
-      elsif data[:"身分"].match(/檢察官/)
-        result += "## backgrounds\n- 檢察官\n\n"
-      elsif data[:"身分"].match(/律師/)
-        result += "## backgrounds\n- 律師\n\n"
-      elsif data[:"身分"].match(/教授|講師|學者/)
-        result += "## backgrounds\n- 學者\n\n"
-      else
-        result += "## backgrounds\n- 其他\n\n"
-      end
-    end
-
+    result += "## backgrounds\n- #{data[:backgrounds]}\n\n"
     # result += "## relations\n- #{data[:"身分"]}\n\n" if data[:"身分"] && data[:"身分"].length > 0
   end
   result += "## articles\n"
