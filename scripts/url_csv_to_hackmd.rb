@@ -71,7 +71,11 @@ end
 def get_appledaily_contents(data)
   # http://www.appledaily.com.tw/realtimenews/article/forum/20170217/1058081/
   html = get_html(data[:"連結"])
-  data[:contents] = html.css('.articulum.trans').children.map{ |i| clean_string(i.text).gsub("《即時論壇》徵稿", "").gsub("你對新聞是否有想法不吐不快？本報特闢《即時論壇》，歡迎讀者投稿，對新聞時事表達意見。來稿請寄onlineopinions@appledaily.com.tw，文長以500字為度，一經錄用，將發布在《蘋果日報》即時新聞區，唯不付稿酬。請勿一稿兩投，本報有刪改權，當天未見報，請另行處理，不另退件或通知。", "").gsub("有話要說 投稿「即時論壇」", "").gsub(/^googletag\..*/, '').split("||") }.flatten.select{ |i| i != "" }
+  data[:contents] = html.css('.articulum.trans').children.map{ |i| clean_string(i.text).gsub("《即時論壇》徵稿", "").
+     gsub("你對新聞是否有想法不吐不快？本報特闢《即時論壇》，歡迎讀者投稿，對新聞時事表達意見。來稿請寄onlineopinions@appledaily.com.tw，文長以500字為度，一經錄用，將發布在《蘋果日報》即時新聞區，唯不付稿酬。請勿一稿兩投，本報有刪改權，當天未見報，請另行處理，不另退件或通知。", "").
+     gsub("來稿請寄onlineopinions@appledaily.com.tw，文長以500字為度，一經錄用，將發布在蘋果日報即時新聞區，唯不付稿酬。請勿一稿兩投，本報有刪改權，當天未見報，請另行處理，不另退件或通知。", "").
+     gsub("你對新聞是否不吐不快？本報特闢《即時論壇》，歡迎讀者投稿，對新聞時事表達意見。來稿請寄onlineopinions@appledaily.com.tw，文長以500字為度，一經錄用，將發布在《蘋果日報》即時新聞區，唯不付稿酬。請勿一稿兩投，本報有刪改權，當天未見報，請另行處理，不另退件或通知。", "").
+     gsub("有話要說 投稿「即時論壇」", "").gsub(/^googletag\..*/, '').split("||") }.flatten.select{ |i| i != "" }
   data[:"平台"] = "蘋果日報"
   return data
 end
