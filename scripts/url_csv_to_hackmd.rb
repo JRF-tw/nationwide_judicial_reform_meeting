@@ -206,6 +206,8 @@ csv.each do |data|
     data = get_twreporter_contents(data)
   elsif uri.host == 'newtalk.tw'
     data = get_newtalk_contents(data)
+  elsif uri.host == 'opinion.chinatimes.com'
+    data = get_chinatime_contents(data)
   elsif uri.host == 'www.jrf.org.tw'
     data = get_jrf_contents(data)
   else
