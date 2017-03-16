@@ -139,7 +139,7 @@ end
 def get_ettoday_contents(data)
   # http://www.ettoday.net/news/20170316/885072.htm
   html = get_html(data[:"連結"])
-  data[:contents] = html.css('.story > p').map{ |i| clean_string(i.text).split("||") }.flatten.select{ |i| i != "" }
+  data[:contents] = html.css('.story > p').map{ |i| clean_string(i.text).gsub("，以上言論不代表本公司立場。88論壇歡迎多元的聲音與觀點，來稿請寄：editor88@ettoday.net", "").gsub("►►►隨時加入觀點與討論，給雲論粉絲團按個讚！", "").gsub("以上言論不代表本公司立場。", "").split("||") }.flatten.select{ |i| i != "" }
   data[:"平台"] = "ETToday東森新聞雲"
   return data
 end
