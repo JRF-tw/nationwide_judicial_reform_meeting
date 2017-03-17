@@ -40,6 +40,10 @@ def add_backgrounds(data)
     elsif data[:"身分"].match(/教授|講師|學者/)
       data[:backgrounds] = "學者"
     end
+  elsif data[:"作者"] == "中華民國法官協會"
+    data[:backgrounds] = "法官"
+  elsif data[:"作者"] == "中華民國檢察官協會"
+    data[:backgrounds] = "檢察官"
   end
   return data
 end
