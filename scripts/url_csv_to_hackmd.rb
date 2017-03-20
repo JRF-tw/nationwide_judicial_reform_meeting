@@ -31,6 +31,8 @@ def add_backgrounds(data)
       data[:backgrounds] = "學者"
     elsif data[:"作者"] == "交通大學科技法律學院地院實習課程學生"
       data[:backgrounds] = "其他"
+    elsif data[:"作者"] == "林志忠"
+      data[:backgrounds] = "律師"
     elsif data[:"身分"].match(/法官|司法院院長|庭長/)
       data[:backgrounds] = "法官"
     elsif data[:"身分"].match(/律師/)
