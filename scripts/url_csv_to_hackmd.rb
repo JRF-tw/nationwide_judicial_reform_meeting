@@ -4,6 +4,7 @@ require 'nokogiri'
 require 'json'
 require 'open-uri'
 require 'smarter_csv'
+require 'date'
 
 def get_html(url)
   page = open(url)
@@ -255,6 +256,7 @@ result += "\n\n\n___
 <p>
 2017年2月起，總統府召開<a href=\"https://justice.president.gov.tw/\" target=\"_blank\">司法改革國是會議</a>，會議期間，媒體上出現大量司法制度相關投書，此為民間司改會所製作之投書整理。
 </p>
+<p>本投書整理更新時間：#{DateTime.now.strftime('%Y年%m月%d日 %H:%M:%S')}</p>
 <ul>
   <li><a href=\"https://www.jrf.org.tw/\" target=\"_blank\">民間司改會網站</a></li>
   <li><a href=\"http://fb.com/jrf.tw\" target=\"_blank\">民間司改會粉專</a></li>
