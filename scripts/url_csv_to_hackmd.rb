@@ -106,7 +106,7 @@ end
 def get_upmedia_contents(data)
   # http://www.upmedia.mg/news_info.php?SerialNo=12152
   html = get_html(data[:"連結"])
-  data[:contents] = html.css('.editor > p').map{|i| clean_string(i.text).gsub("【上報徵稿】", "").gsub("上報歡迎各界投書，來稿請寄至editor@upmedia.mg，並請附上真實姓名、聯絡方式與職業身分簡介。", "").gsub("一起加入Line好友（ID：@upmedia），或點網址https://line.me/ti/p/%40zsq4746x。", "").split("||") }.flatten.select{ |i| i != "" }
+  data[:contents] = html.css('.editor > p, blockquote').map{|i| clean_string(i.text).gsub("【上報徵稿】", "").gsub("上報歡迎各界投書，來稿請寄至editor@upmedia.mg，並請附上真實姓名、聯絡方式與職業身分簡介。", "").gsub("一起加入Line好友（ID：@upmedia），或點網址https://line.me/ti/p/%40zsq4746x。", "").split("||") }.flatten.select{ |i| i != "" }
   data[:"平台"] = "上報"
   return data
 end
