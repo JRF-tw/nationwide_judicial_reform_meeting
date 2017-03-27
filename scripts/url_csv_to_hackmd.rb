@@ -183,6 +183,14 @@ def get_jrf_contents(data)
   return data
 end
 
+def get_pixnet_contents(data)
+  # https://www.jrf.org.tw/articles/1218
+  html = get_html(data[:"連結"])
+  data[:contents] = html.css('.article-content > .article-content-inner#article-content-inner > p').map{ |i| clean_string(i.text).split("||") }.flatten.select{ |i| i != "" }
+  data[:"平台"] = "Pixnet痞客邦"
+  return data
+end
+
 csv = SmarterCSV.process(ARGV[0])
 result = "總統府司法改革國是會議相關投書彙整\n\n"
 author = nil
@@ -227,6 +235,8 @@ csv.each do |data|
     data = get_chinatime_contents(data)
   elsif uri.host == 'www.jrf.org.tw'
     data = get_jrf_contents(data)
+  elsif uri.host.match(/.*\.pixnet\.net/)
+    data = get_pixnet_contents(data)
   else
     data[:contents] = data[:"內文"].split("\n").map{ |i| clean_string(i) }.select{ |i| i != "" } if data[:"內文"]
     data[:"平台"] = "其他平台"
@@ -287,7 +297,7 @@ all_authors[:others].each do |author|
 end
 result += "\n"
 
-result += "- 投書平台\n  - 蘋果日報\n  - 公共電視PNN\n  - 上報\n  - 風傳媒\n  - UDN\n  - UDN鳴人堂\n  - 自由時報\n  - 中國時報\n  - 新頭殼\n  - ETToday東森新聞雲\n  - 端傳媒\n  - 報導者\n  - 民間司改會\n  - 其他平台\n\n"
+result += "- 投書平台\n  - 蘋果日報\n  - 公共電視PNN\n  - 上報\n  - 風傳媒\n  - UDN\n  - UDN鳴人堂\n  - 自由時報\n  - 中國時報\n  - 新頭殼\n  - ETToday東森新聞雲\n  - 端傳媒\n  - 報導者\n  - 民間司改會\n  - Pixnet痞客邦\n  - 其他平台\n\n"
 
 result += "- 司改國是會議分組\n  - 第一組\n  - 第二組\n  - 第三組\n  - 第四組\n  - 第五組\n\n"
 result += "- 相關議題\n"

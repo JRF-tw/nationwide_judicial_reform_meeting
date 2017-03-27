@@ -35,6 +35,8 @@ def clean_line(line)
       line = line.gsub("\n", " \n")
     elsif line == "委員：\n"
       line = "不知名" + line
+    elsif line == "司儀：\n"
+      line = "王孟涵：\n"
     end
   end
   return line
