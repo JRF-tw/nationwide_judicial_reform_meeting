@@ -25,6 +25,7 @@ def get_html(url)
 end
 
 def main
+  members = JSON.parse(File.read('./members.json'))
   url = ARGV[0]
   html = get_html(url)
   # Use the heading text as title.
@@ -42,10 +43,27 @@ def main
   end
   # Save it into the csv file named by title.
   File.open("#{title}發言字數統計.csv", 'w') do |f|
-    f.write("name, count\n")
+    f.write("姓名, 發言字數, 身分類別, 法律人類別, 小組分組, 是否為籌備委員\n")
     results.each do |name, count|
-      puts "#{name}, #{count}"
-      f.write("#{name}, #{count}\n")
+      member = nil
+      members.each do |m|
+        if m["姓名"] == name
+          member = m
+          if member["籌備委員"]
+            member["籌備委員"] = "是"
+          else
+            member["籌備委員"] = "否"
+          end
+          break
+        end
+      end
+      if member
+        result = "#{name}, #{count}, #{member["身分類別"]}, #{member["法律人類別"]}, #{member["小組分組"]}, #{member["籌備委員"]}\n"
+      else
+        result = "#{name}, #{count},,,,\n"
+      end
+      puts result
+      f.write(result)
     end
   end
 end
