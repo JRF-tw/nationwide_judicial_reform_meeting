@@ -135,6 +135,14 @@ def get_ltn_contents(data)
   return data
 end
 
+def get_peoplenews_contents(data)
+  # http://www.peoplenews.tw/news/f88488d2-d8cc-475c-8a26-f740e88c3174
+  html = get_html(data[:"連結"])
+  data[:contents] = html.css('#newscontent > p').map{ |i| clean_string(i.text).gsub("專欄屬作者個人意見，文責歸屬作者，本報提供意見交流平台，不代表本報立場。", "").split("||") }.flatten.select{ |i| i != "" }
+  data[:"平台"] = "民報"
+  return data
+end
+
 def get_newtalk_contents(data)
   # https://newtalk.tw/news/view/2017-03-10/82760
   html = get_html(data[:"連結"])
@@ -235,6 +243,8 @@ csv.each do |data|
     data = get_chinatime_contents(data)
   elsif uri.host == 'www.jrf.org.tw'
     data = get_jrf_contents(data)
+  elsif uri.host == 'www.peoplenews.tw'
+    data = get_peoplenews_contents(data)
   elsif uri.host.match(/.*\.pixnet\.net/)
     data = get_pixnet_contents(data)
   else

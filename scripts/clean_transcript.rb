@@ -12,6 +12,7 @@ def clean_line(line)
     gsub(')', '）').
     gsub('?', '？').
     gsub(":", "：").
+    gsub('︰', '：').
     gsub('!', '！').
     gsub(';', '；').
     gsub('||', ' ').
