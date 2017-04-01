@@ -63,7 +63,7 @@ def output_markdown(data, old_author, old_backgrounds)
   result += "- "
   result += "<h2><a href=\"#{data[:"連結"]}\" target=\"_blank\">#{data[:"標題"].gsub("#", "")}</a></h2>" if data[:"標題"]
   data[:contents].each do |content|
-    result += "<p>#{content}</p>"
+    result += "<p>#{content.gsub('#', '')}</p>"
   end
   result += " "
   result += get_keywords(data)
@@ -307,7 +307,7 @@ all_authors[:others].each do |author|
 end
 result += "\n"
 
-result += "- 投書平台\n  - 蘋果日報\n  - 公共電視PNN\n  - 上報\n  - 風傳媒\n  - UDN\n  - UDN鳴人堂\n  - 自由時報\n  - 中國時報\n  - 新頭殼\n  - ETToday東森新聞雲\n  - 端傳媒\n  - 報導者\n  - 民間司改會\n  - Pixnet痞客邦\n  - 其他平台\n\n"
+result += "- 投書平台\n  - 蘋果日報\n  - 公共電視PNN\n  - 上報\n  - 風傳媒\n  - UDN\n  - UDN鳴人堂\n  - 自由時報\n  - 中國時報\n  - 新頭殼\n  - ETToday東森新聞雲\n  - 民報\n  - 端傳媒\n  - 報導者\n  - 民間司改會\n  - Pixnet痞客邦\n  - 其他平台\n\n"
 
 result += "- 司改國是會議分組\n  - 第一組\n  - 第二組\n  - 第三組\n  - 第四組\n  - 第五組\n\n"
 result += "- 相關議題\n"
