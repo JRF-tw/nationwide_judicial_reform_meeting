@@ -52,7 +52,7 @@ def get_list(url)
   begin
     json = get_json(url)
     if json['status'] == 'success'
-      return Nokogiri::HTML(json['data']['row'])
+      return json['data']['rows']
     else
       return false
     end
@@ -192,7 +192,7 @@ list_url = 'https://justice.president.gov.tw/apis/portal/meeting?category_seq=2&
 
 list = get_list(list_url)
 list.each do |item|
-  url = "https://justice.president.gov.tw/apis/portal/meeting/" + item['id']
+  url = "https://justice.president.gov.tw/apis/portal/meeting/" + item['id'].to_s
   process_url(url)
 end
 
