@@ -147,7 +147,7 @@ end
 def output_markdown(data)
   result = ''
   result += "# #{data[:author]}\n"
-  result += "## backgrounds\n- #{data[:backgrounds]}\n\n" if data[:backgrounds]
+  result += "## backgrounds\n- #{data[:group]}\n\n" if data[:group]
   # result += "## relations\n- #{data[:"身分"]}\n\n" if data[:"身分"] && data[:"身分"].length > 0
   result += "## articles\n"
   result += "### #{data[:date].gsub("-", "/")} GMT0+8:00 #{data[:url]}\n"
@@ -164,6 +164,9 @@ def process_url(url)
   body, caption, time = get_body(url)
   if body
     group = caption.match(/第[一二三四五]分?組|籌備/).to_a.first.gsub('分', '')
+    if group == '籌備'
+      group = '籌備會議'
+    end
     anchors = body.css('a').select { |a| google_drive_anchor?(a) }
     anchors.each do |anchor|
       data = parse_anchor(anchor, group, time)
