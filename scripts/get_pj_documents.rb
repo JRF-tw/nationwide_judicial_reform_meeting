@@ -122,7 +122,12 @@ end
 def parse_anchor_issue(anchor)
   issues = anchor[:text].scan(/[\(（]資料編號-(.*)[\)）]/)
   if issues
-    anchor[:issue] = issues.flatten.first
+    issue = issues.flatten.first
+    if issue && issue.match(/、/)
+      issue_num = issue.match(/\d+-\d+-./).to_a.first
+      issue = issue.gsub(issue_num, '').split('、').map{ |i| issue_num + i }.join('、')
+    end
+    anchor[:issue] = issue
   else
     anchor[:issue] = nil
   end
@@ -181,7 +186,11 @@ def process_url(url)
           $all_authors[:others] << data[:author] unless $all_authors[:others].include?(data[:author])
         end
         $all_dates << data[:date] unless $all_dates.include?(data[:date])
-        $all_issues << data[:issue] unless !data[:issue] || $all_issues.include?(data[:issue])
+        if data[:issue]
+          data[:issue].split('、').each do |issue|
+            $all_issues << issue unless $all_issues.include?(issue)
+          end
+        end
       end
     end
   end
@@ -263,6 +272,7 @@ $all_dates.sort.each do |date|
 end
 $result += "\n"
 write_file('result1.md', $result)
+write_file('result1.json', $documents.to_json)
 
 # api:
 # https://justice.president.gov.tw/apis/portal/news/18
