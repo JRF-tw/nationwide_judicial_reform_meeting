@@ -140,7 +140,7 @@ def get_keywords(data)
   keywords += "、籌備委員" if data[:organizer]
   keywords += "、#{data[:law_type]}" if data[:law_type]
   keywords += "、#{data[:issue]}" if data[:issue]
-  keywords += "、#{data['date']}"
+  keywords += "、#{data[:date]}"
   keywords.split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
 end
 
@@ -152,7 +152,7 @@ def output_markdown(data)
   result += "## articles\n"
   result += "### #{data[:date].gsub("-", "/")} GMT0+8:00 #{data[:url]}\n"
   result += "- "
-  result += "<h2><a href=\"#{data[:url]}\" target=\"_blank\">#{data[:text].gsub("#", "")}</a></h2>"
+  result += "<h3><a href=\"#{data[:url]}\" target=\"_blank\">#{data[:text].gsub("#", "")}</a></h3>"
   result += " "
   result += get_keywords(data)
   result += "\n\n"
