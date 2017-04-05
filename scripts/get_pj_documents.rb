@@ -202,7 +202,7 @@ end
 list_url = 'https://justice.president.gov.tw/apis/portal/meeting?category_seq=2&dir=jump&page_number=1&page_size=50'
 
 list = get_list(list_url)
-list.each do |item|
+list.sort_by{ |item| item['id'] }.each do |item|
   url = "https://justice.president.gov.tw/apis/portal/meeting/" + item['id'].to_s
   process_url(url)
 end
