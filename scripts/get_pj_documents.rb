@@ -176,14 +176,13 @@ def process_url(url)
         end
         $documents << data
         $texts << data[:text]
-        $result += output_markdown(data)
-        if data[:lawyers_type] == "法官"
+        if data[:law_type] == "法官"
           $all_authors[:judges] << data[:author] unless $all_authors[:judges].include?(data[:author])
-        elsif data[:lawyers_type] == "律師"
+        elsif data[:law_type] == "律師"
           $all_authors[:lawyers] << data[:author] unless $all_authors[:lawyers].include?(data[:author])
-        elsif data[:lawyers_type] == "檢察官"
+        elsif data[:law_type] == "檢察官"
           $all_authors[:procedures] << data[:author] unless $all_authors[:procedures].include?(data[:author])
-        elsif data[:lawyers_type] == "學者"
+        elsif data[:law_type] == "學者"
           $all_authors[:theachers] << data[:author] unless $all_authors[:theachers].include?(data[:author])
         else
           $all_authors[:others] << data[:author] unless $all_authors[:others].include?(data[:author])
@@ -220,6 +219,11 @@ while failed_times < 5
   else
     failed_times = 0
   end
+end
+
+$documents = $documents.sort_by { |item| item[:date] }
+$documents.each do |data|
+  $result += output_markdown(data)
 end
 
 #puts $documents.to_json
