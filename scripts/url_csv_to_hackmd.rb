@@ -278,6 +278,7 @@ result += "\n\n\n___
 </p>
 <p>本投書整理更新時間：#{DateTime.now.strftime('%Y年%m月%d日 %H:%M:%S')}</p>
 <ul>
+  <li><a href=\"http://bit.ly/pj-links2\" target=\"_blank\">司改國是會議會議資料彙整</a></li>
   <li><a href=\"https://www.jrf.org.tw/\" target=\"_blank\">民間司改會網站</a></li>
   <li><a href=\"http://fb.com/jrf.tw\" target=\"_blank\">民間司改會粉專</a></li>
   <li><a href=\"http://bit.ly/2m37Aha\" target=\"_blank\">關於Debater辯論家</a></li>
