@@ -56,3 +56,6 @@ contents[0] = contents[0].gsub(' ', '')
 File.open('output.txt',"w") do |f|
   f.write(contents.join(""))
 end
+
+
+# find ^  .*：\n
