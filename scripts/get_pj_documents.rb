@@ -11,6 +11,7 @@ Dir.chdir(File.dirname(__FILE__))
 def format_issue(issue)
   issue[:"會議討論項目編號"] = issue[:"會議討論項目編號"] ? issue[:"會議討論項目編號"].split('、') : []
   issue[:"討論日期"] = issue[:"討論日期"] ? issue[:"討論日期"].split('、') : []
+  issue[:"議題"] = issue[:"議題"].gsub('、', '||')
   return issue
 end
 
@@ -130,7 +131,7 @@ def parse_anchor_author(anchor)
 end
 
 def parse_anchor_issue(anchor)
-  issues = anchor[:text].scan(/[\(（]資料編號-(.*)[\)）]/)
+  issues = anchor[:text].scan(/資料編號-(.*\d)/)
   anchor[:issue_no] = []
   anchor[:issue_name] = []
   if issues
@@ -169,7 +170,7 @@ def get_keywords(data)
   keywords += "、#{data[:issue_no].join('、')}" if data[:issue_no]
   keywords += "、#{data[:issue_name].join('、')}" if data[:issue_name]
   keywords += "、#{data[:date]}"
-  keywords.split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
+  keywords.split('、').select{ |i| i != "" }.map{ |i| "##{i}".gsub('||', '、') }.join(' ')
 end
 
 def output_markdown(data)
@@ -309,7 +310,7 @@ end
 
 $result += "- 議題\n"
 $all_issue_name.sort.each do |issue|
-  $result += "  - #{issue}\n"
+  $result += "  - #{issue.gsub('||', '、')}\n"
 end
 
 $result += "- 日期\n"
