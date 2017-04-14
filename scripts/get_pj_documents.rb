@@ -4,12 +4,20 @@ require 'nokogiri'
 require 'json'
 require 'open-uri'
 require 'date'
+require 'smarter_csv'
 
 Dir.chdir(File.dirname(__FILE__))
+
+def format_issue(issue)
+  issue[:"會議討論項目編號"] = issue[:"會議討論項目編號"] ? issue[:"會議討論項目編號"].split('、') : []
+  issue[:"討論日期"] = issue[:"討論日期"] ? issue[:"討論日期"].split('、') : []
+  return issue
+end
 
 $documents = []
 $texts = []
 $members = JSON.parse(File.read('./members.json'))
+$issues = SmarterCSV.process('./issues.csv').map{ |i| format_issue(i) }
 $result = "總統府司法改革國是會議資料彙整\n\n"
 $all_authors = {
   procedures: [],
@@ -21,6 +29,8 @@ $all_authors = {
 }
 $all_dates = []
 $all_issues = []
+$all_issue_no = []
+$all_issue_name = []
 
 def write_file(filename, content)
   File.open(filename,"w") do |f|
@@ -121,11 +131,27 @@ end
 
 def parse_anchor_issue(anchor)
   issues = anchor[:text].scan(/[\(（]資料編號-(.*)[\)）]/)
+  anchor[:issue_no] = []
+  anchor[:issue_name] = []
   if issues
     issue = issues.flatten.first
     if issue && issue.match(/、/)
       issue_num = issue.match(/\d+-\d+-./).to_a.first
-      issue = issue.gsub(issue_num, '').split('、').map{ |i| issue_num + i }.join('、')
+      # issue = issue.gsub(issue_num, '').split('、').map{ |i| issue_num + i }.join('、')
+      issue = issue.gsub(issue_num, '').split('、').map{ |i| issue_num + i }
+      issue.each do |item|
+        $issues.each do |i|
+          i[:"會議討論項目編號"].each do |j|
+            if j == item
+              anchor[:issue_no] << i[:"議題清單編號"]
+              anchor[:issue_name] << i[:"議題"]
+              $all_issue_no << i[:"議題清單編號"] unless $all_issue_no.include?(i[:"議題清單編號"])
+              $all_issue_name << i[:"議題"] unless $all_issue_name.include?(i[:"議題"])
+            end
+          end
+        end
+      end
+      issue = issue.join('、')
     end
     anchor[:issue] = issue
   else
@@ -140,6 +166,8 @@ def get_keywords(data)
   keywords += "、籌備委員" if data[:organizer]
   keywords += "、#{data[:law_type]}" if data[:law_type]
   keywords += "、#{data[:issue]}" if data[:issue]
+  keywords += "、#{data[:issue_no].join('、')}" if data[:issue_no]
+  keywords += "、#{data[:issue_name].join('、')}" if data[:issue_name]
   keywords += "、#{data[:date]}"
   keywords.split('、').select{ |i| i != "" }.map{ |i| "##{i}" }.join(' ')
 end
@@ -269,8 +297,18 @@ $result += "\n"
 $result += "- 提供委員分組\n  - 第一組委員\n  - 第二組委員\n  - 第三組委員\n  - 第四組委員\n  - 第五組委員\n  - 籌備委員\n\n"
 $result += "- 司改國是會議分組\n  - 第一組\n  - 第二組\n  - 第三組\n  - 第四組\n  - 第五組\n  - 籌備會議\n\n"
 
-$result += "- 議題分類\n"
+$result += "- 會議編號分類\n"
 $all_issues.sort.each do |issue|
+  $result += "  - #{issue}\n"
+end
+
+$result += "- 議題編號\n"
+$all_issue_no.sort.each do |issue|
+  $result += "  - #{issue}\n"
+end
+
+$result += "- 議題\n"
+$all_issue_name.sort.each do |issue|
   $result += "  - #{issue}\n"
 end
 
