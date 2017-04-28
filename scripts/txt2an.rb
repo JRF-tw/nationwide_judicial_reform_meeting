@@ -50,8 +50,8 @@ end
 def get_chairman(contents)
   chairman = nil
   contents.each do |content|
-    if content.text.match(/主席：(\p{Word}+)/)
-      chairman = content.text.gsub('主席：', '').gsub('委員兼召集人', '').gsub('教授', '').
+    if content.match(/主席：(\p{Word}+)/)
+      chairman = content.gsub('主席：', '').gsub('委員兼召集人', '').gsub('教授', '').
         gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('部長', '').gsub('委員', '').
         gsub('長長', '長')
     end
@@ -98,10 +98,10 @@ def insert_narrative(narrative, debateSection, doc)
 end
 
 def main
-  url = ARGV[0]
-  html = get_html(url)
-  title = html.css('h1').first.text
-  contents = html.css('p')
+  file = ARGV[0]
+  txt = File.readlines(file).map{ |i| i.to_s.gsub("\n", '').gsub("\r", '').gsub(' ', ' ').gsub('︰', '：') }
+  title = txt.shift
+  contents = txt
   starttime, endtime, chairman = nil
   people = []
   chairman = get_chairman(contents)
@@ -131,7 +131,7 @@ def main
   doc.at_css('heading').content = title
   debateSection = doc.at_css "debateSection"
   contents.each do |content|
-    text = content.text.gsub(' ', ' ').gsub('︰', '：')
+    text = content
     if text.match(/^\s*$/)
       next
     elsif text.match(/^時間：/)
