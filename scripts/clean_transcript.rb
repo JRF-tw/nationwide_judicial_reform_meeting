@@ -58,5 +58,7 @@ File.open('output.txt',"w") do |f|
 end
 
 
-# find ^  .*：\n
+# find ^  .*： \n
 # ^.、
+# ^（
+# ^委員
