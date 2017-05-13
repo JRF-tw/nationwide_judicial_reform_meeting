@@ -2,7 +2,6 @@
 
 require 'nokogiri'
 require 'json'
-require 'open-uri'
 require 'date'
 require 'time'
 
@@ -21,11 +20,6 @@ def scan_content(content, pattern)
     matches = []
   end
   return matches
-end
-
-def get_html(url)
-  page = open(url)
-  html = Nokogiri::HTML(page.read)
 end
 
 def get_name(name, chairman = nil)
