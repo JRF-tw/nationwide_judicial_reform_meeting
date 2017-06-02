@@ -27,7 +27,7 @@ def get_name(name, chairman = nil)
   if chairman and name == '主席'
     return chairman
   end
-  name = name.gsub('委員兼召集人', '').gsub('分組委員', '').gsub('籌備委員', '').gsub('委員', '').gsub('副召集人', '').gsub('召集人', '').gsub('處長', '').gsub('律師', '').
+  name = name.gsub('委員兼召集人', '').gsub('分組委員', '').gsub('籌備委員', '').gsub('專門委員', '').gsub('委員', '').gsub('副召集人', '').gsub('召集人', '').gsub('處長', '').gsub('律師', '').
     gsub('大法官', '').gsub('法官', '').gsub('檢察官', '').gsub('副主席', '').gsub('副執行秘書', '').gsub('執行秘書', '').gsub('教授', '').gsub('理事長', '').
     gsub('理事', '').gsub('副院長', '').gsub('院長', '').gsub('先生', '').gsub('副廳長', '').gsub('關係機關代表', '').gsub('機關代表', '').
     gsub('簡任祕書', '').gsub('部長', '').gsub('副組長', '').gsub('組長', '').gsub('民事廳', '').gsub('書記處', '').gsub('政務', '').
@@ -37,7 +37,7 @@ def get_name(name, chairman = nil)
     gsub('老師', '').gsub('書記官', '').gsub('鑑定人', '').gsub('聲請人', '').gsub('關係機關訴訟代理人', '').gsub('董事長', '').gsub('機關訴訟代理人', '').
     gsub('聲請方訴訟代理人', '').gsub('副研究員', '').gsub('助研究員', '').gsub('研究員', '').gsub('研究助理', '').gsub('審判長', '').gsub('杜銘哲案訴訟代理人', '').gsub('黃國昌案訴訟代理人', '').
     gsub('司法院', '').gsub('法務部', '').gsub('總統府', '').gsub('副司長', '').gsub('司長', '').gsub('秘書', '').gsub('籌委', '').gsub('助理', '').gsub('司儀', '').
-    gsub('發言', '').gsub('科長', '').gsub('副署長', '').gsub('署長', '').gsub('提問人', '').gsub('會長', '')
+    gsub('發言', '').gsub('科長', '').gsub('副署長', '').gsub('署長', '').gsub('提問人', '').gsub('會長', '').gsub('刑事廳', '').gsub('司儀', '').gsub('司法行政廳', '').gsub('檢察司', '')
 
 end
 

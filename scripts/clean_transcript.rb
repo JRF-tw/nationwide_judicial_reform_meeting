@@ -24,13 +24,13 @@ def clean_line(line)
     gsub('||', ',')
   if line[-2] != '：' &&
       line[0] != "（" &&
-      line[1] != "、" &&
+      # line[1] != "、" &&
       !line.match(/^(時間|出席人員|列席人員|出席者|列席者|主席|紀錄|記錄|地點)：/) &&
       !line.match(/^討論事項/) &&
       line != "\n"
     line = "  " + line
   elsif line[-2] == '：'
-    if line.length > 10
+    if line.length > 25
       line = "  " + line.gsub("\n", " \n")
     elsif line[1] == "、"
       line = line.gsub("\n", " \n")
@@ -59,6 +59,6 @@ end
 
 
 # find ^  .*： \n
-# ^.、
+# ^  .、
 # ^（
 # ^委員
