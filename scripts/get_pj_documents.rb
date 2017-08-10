@@ -101,7 +101,7 @@ def parse_anchor(anchor, group, time)
   result[:date] = time.strftime('%Y-%m-%d')
   result[:group] = group
   result = parse_anchor_author(result)
-  result = parse_anchor_issue(result)
+  # result = parse_anchor_issue(result)
   return result
 end
 
@@ -191,7 +191,7 @@ end
 def process_url(url)
   status = false
   body, caption, time = get_body(url)
-  if body
+  if body && caption.match(/第[一二三四五]分?組|籌備/).to_a.length > 0
     group = caption.match(/第[一二三四五]分?組|籌備/).to_a.first.gsub('分', '')
     if group == '籌備'
       group = '籌備會議'
