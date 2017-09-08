@@ -20,6 +20,7 @@ $texts = []
 $members = JSON.parse(File.read('./members.json'))
 $issues = SmarterCSV.process('./issues.csv').map{ |i| format_issue(i) }
 $result = "總統府司法改革國是會議資料彙整\n\n"
+$result_csv = "caption,date,group,text,url,author,author_group,law_type,backgrounds,organizer\n"
 $all_authors = {
   procedures: [],
   lawyers: [],
@@ -199,6 +200,7 @@ def process_url(url)
     anchors = body.css('a').select { |a| google_drive_anchor?(a) }
     anchors.each do |anchor|
       data = parse_anchor(anchor, group, time)
+      data[:caption] = caption
       unless $texts.include? data[:text]
         if status == false
           status = true
@@ -253,7 +255,12 @@ end
 $documents = $documents.sort_by { |item| item[:date] }
 $documents.each do |data|
   $result += output_markdown(data)
+  $result_csv += "\"#{data[:caption]}\",\"#{data[:date]}\",\"#{data[:group]}\",\"#{data[:text]}\",\"#{data[:url]}\",\"#{data[:author]}\",\"#{data[:author_group]}\",\"#{data[:law_type]}\",\"#{data[:backgrounds]}\",\"#{data[:organizer]}\"\n"
 end
+
+
+
+
 
 #puts $documents.to_json
 #puts $texts.to_json
@@ -320,6 +327,7 @@ end
 $result += "\n"
 write_file('result1.md', $result)
 write_file('result1.json', $documents.to_json)
+write_file('result1.csv', $result_csv)
 
 # api:
 # https://justice.president.gov.tw/apis/portal/news/18
